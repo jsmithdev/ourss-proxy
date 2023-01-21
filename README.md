@@ -2,6 +2,8 @@
 
 Simple reverse proxy for lambda
 
+> Written in common as serverless-http doesn't support ESM yet 😢
+
 ## Purpose
 
 Used for <https://ourss.app> when a feed's server fails / doesn't having CORS setup
