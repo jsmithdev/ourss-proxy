@@ -1,0 +1,32 @@
+{
+  "name": "lamda-proxy",
+  "version": "0.0.1",
+  "description": "Reverse proxy for lambda in express/node",
+  "main": "index.js",
+  "keywords": [
+    "lambda",
+    "cors",
+    "proxy",
+    "node"
+  ],
+  "author": "Jamie Smith",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.3.0",
+    "serverless-http": "^3.1.1"
+  },
+  "devDependencies": {
+    "dotenv": "^8.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "build": "npm run clean && zip -r lambda-proxy.zip . -x .git/* -x .gitignore -x package-lock.json -x -x README.md -x .env",
+    "watch": "nodemon app.js",
+    "bootstrap": "npm install && npm run build",
+    "update:hack": "npm i -s cors express helmet node-fetch serverless-http",
+    "clean": "rm -f lambda-proxy.zip",
+    "test:get": "curl -X POST http://localhost:4242/api    -H \"Content-Type: application/json\" -d '{\"url\": \"https://www.patreon.com/rss/nerdpoker?auth=1a4mPdGsvu2JRekulAPn8_0wz1JIpaq_\"}'",
+    "test:post": "curl -X GET http://localhost:4242/api?url=https://www.patreon.com/rss/nerdpoker?auth=1a4mPdGsvu2JRekulAPn8_0wz1JIpaq_"
+  }
+}
