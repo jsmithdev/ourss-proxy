@@ -16,7 +16,6 @@
   },
   "scripts": {
     "start": "node app.js",
-    "build": "npm run clean && zip -r dist.zip . -x .git/* -x .gitignore -x package-lock.json -x -x README.md -x .env",
     "watch": "nodemon app.js",
     "bootstrap": "npm install && npm run build",
     "update:hack": "npm i -s cors express helmet node-fetch serverless-http",
