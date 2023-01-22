@@ -32,6 +32,14 @@ app.get('/', async (req, res) => {
             
             const prox = await fetch(req.query.url)
 
+            if(!prox.ok) return res.status(prox.status).send(prox.statusText);
+
+            if(!res.getHeader('access-control-allow-origin')){
+                res.header("Access-Control-Allow-Origin", "*");
+                res.header("Access-Control-Allow-Methods", "GET");
+                res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+            }
+
             prox.body.pipe(res);
         }
         catch(error){
