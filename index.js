@@ -40,7 +40,7 @@ app.get('/', async (req, res) => {
                 res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
             }
 
-            res.headers['content-length'] = prox.headers['content-length']
+            //res.headers['content-length'] = prox.headers['content-length']
 
             prox.body.pipe(res);
         }
