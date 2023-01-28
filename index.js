@@ -40,6 +40,8 @@ app.get('/', async (req, res) => {
                 res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
             }
 
+            res.headers['content-length'] = prox.headers['content-length']
+
             prox.body.pipe(res);
         }
         catch(error){
@@ -51,6 +53,15 @@ app.get('/', async (req, res) => {
     console.timeEnd('request')
     const used = process.memoryUsage().heapUsed / 1024 / 1024;
     console.log(`The script uses approximately ${Math.round(used * 100) / 100} MB`);
+})
+app.post('/proxy', express.json(), async (req, res) => {
+    
+    console.log('proxy')
+    console.log(req.headers)
+    console.log(req.body)
+    console.log('----------------')
+
+    res.send('ok').status(200)
 })
 
 app.listen(port, () => console.log(`Initialized. Using port ${port} - ${new Date().toUTCString()}`))
