@@ -11,7 +11,7 @@ app.use(helmet());
 //app.use(cors({
 //    origin: process.env.SF_URL
 //}))
-
+http://localhost:4242/
 app.get('/', async (req, res) => {
 
 	const dev = req.query.dev ? true : false;
@@ -20,9 +20,10 @@ app.get('/', async (req, res) => {
 	if (req.method === 'OPTIONS') {
 
 		// CORS Preflight
-		res.header("Access-Control-Allow-Origin", "https://ourss.app");
+		res.header("Access-Control-Allow-Origin", "*");
+		//res.header("Access-Control-Allow-Origin", "https://ourss.app");
 		res.header("Access-Control-Allow-Methods", "GET");
-		res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
+		//res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
 		res.status(200).send();
 	}
 	else {
@@ -36,7 +37,8 @@ app.get('/', async (req, res) => {
 			if (!prox.ok) return res.status(prox.status).send(prox.statusText);
 
 			if (!res.getHeader('access-control-allow-origin')) {
-				res.header("Access-Control-Allow-Origin", "https://ourss.app");
+				res.header("Access-Control-Allow-Origin", "*");
+				//res.header("Access-Control-Allow-Origin", "https://ourss.app");
 				res.header("Access-Control-Allow-Methods", "GET");
 				//res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
 			}
@@ -47,7 +49,16 @@ app.get('/', async (req, res) => {
 
 			if (dev) console.log(res.getHeaders());
 
+			//prox.body.pipe(res)
 			prox.body.pipe(res);
+			res.on('close', () => {
+				prox.body?.destroy();
+				res.body?.destroy();
+			});
+			res.on('error', error => {
+				prox.body?.destroy();
+				res.body?.destroy();
+			});
 		}
 		catch (error) {
 			console.error(error)
