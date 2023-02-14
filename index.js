@@ -1,12 +1,12 @@
 const express = require('express');
 //const cors = require('cors');
-const helmet = require('helmet');
+//const helmet = require('helmet');
 const fetch = require('node-fetch');
 
 const app = express()
 const port = process.env.PORT || 4242;
 
-app.use(helmet());
+//app.use(helmet());
 
 //app.use(cors({
 //    origin: process.env.SF_URL
