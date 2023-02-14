@@ -1,24 +1,26 @@
 {
-  "name": "ourss-proxy",
-  "version": "0.0.2",
-  "description": "Reverse proxy for lambda in express/node",
-  "main": "index.js",
-  "keywords": [
-    "cors",
-    "proxy",
-    "node"
-  ],
-  "author": "Jamie Smith",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.18.2",
-    "node-fetch": "^2.3.0"
-  },
-  "scripts": {
-    "watch": "nodemon index.js",
-    "bootstrap": "npm install && npm run build",
-    "update:hack": "npm i -s cors express node-fetch",
-    "clean": "rm -f dist.zip",
-    "test:get": "curl -X GET http://localhost:4242/api?url=https://www.patreon.com/rss/nerdpoker?auth=1a4mPdGsvu2JRekulAPn8_0wz1JIpaq_"
-  }
+	"name": "ourss-proxy",
+	"version": "0.0.2",
+	"description": "Reverse proxy for lambda in express/node",
+	"main": "index.js",
+	"keywords": [
+		"cors",
+		"proxy",
+		"node"
+	],
+	"author": "Jamie Smith",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.18.2",
+		"helmet": "^6.0.1",
+		"node-fetch": "^2.3.0"
+	},
+	"scripts": {
+		"start": "node index.js",
+		"watch": "nodemon index.js",
+		"bootstrap": "npm install && npm run build",
+		"update:hack": "npm i -s cors express node-fetch",
+		"clean": "rm -f dist.zip",
+		"test:get": "curl -X GET http://localhost:4242/api?url=https://www.patreon.com/rss/nerdpoker?auth=1a4mPdGsvu2JRekulAPn8_0wz1JIpaq_"
+	}
 }
