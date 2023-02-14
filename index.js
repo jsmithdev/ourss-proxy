@@ -11,11 +11,10 @@ const port = process.env.PORT || 4242;
 //app.use(cors({
 //    origin: process.env.SF_URL
 //}))
-http://localhost:4242/
+
 app.get('/', async (req, res) => {
 
 	const dev = req.query.dev ? true : false;
-	if (dev) console.time('request');
 
 	if (req.method === 'OPTIONS') {
 
@@ -24,13 +23,15 @@ app.get('/', async (req, res) => {
 		//res.header("Access-Control-Allow-Origin", "https://ourss.app");
 		res.header("Access-Control-Allow-Methods", "GET");
 		//res.header("Access-Control-Allow-Headers", req.header('access-control-request-headers'));
-		res.status(200).send();
+		return res.status(200).send();
 	}
 	else {
 
 		try {
 
 			if (!req.query.url) return res.status(400).send('A url parameter is required');
+
+			if (dev) console.time('request');
 
 			const prox = await fetch(req.query.url)
 
@@ -51,13 +52,13 @@ app.get('/', async (req, res) => {
 
 			//prox.body.pipe(res)
 			prox.body.pipe(res);
-			res.on('close', () => {
+			prox.body.on('close', () => {
 				prox.body?.destroy();
-				res.body?.destroy();
+				if (dev) console.log('closed');
 			});
-			res.on('error', error => {
+			prox.body.on('error', error => {
 				prox.body?.destroy();
-				res.body?.destroy();
+				if (dev) console.log('error: ' + error);
 			});
 		}
 		catch (error) {
